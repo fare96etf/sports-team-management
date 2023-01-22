@@ -1,0 +1,34 @@
+<div class="content-page">
+  <div class="header">
+    <h1>Employees</h1>
+  </div>
+  <employees-list-filter-component></employees-list-filter-component>
+  <div>
+    <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>
+              {{ employee.id }}
+            </td>
+            <td>
+              {{ employee.firstName }}
+            </td>
+            <td>
+              {{ employee.lastName }}
+            </td>
+            <td>
+              {{ employee.dateOfBirth | date: 'longDate' }}
+            </td>
+          </tr>
+        </tbody>
+    </table>
+  </div>
+</div>
