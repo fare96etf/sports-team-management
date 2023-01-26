@@ -16,103 +16,30 @@
   margin-left: 20px;
 }
 
-.responsive-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 1rem;
-  color: #333;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease-in-out;
-}
-
-.responsive-table:hover {
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
-}
-
-.responsive-table th, .responsive-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.responsive-table th {
-  background-color: #f7f7f7;
-  font-weight: 500;
-}
-
-@media only screen and (max-width: 600px) {
-  /* Responsive styles for small screens */
-  .responsive-table {
-    font-size: 0.8rem;
-  }
-  .responsive-table td, .responsive-table th {
-      display: block;
-  }
-  .responsive-table th {
-      text-align: left;
-  }
-}
-
-.search-form {
+.form-inline {
   display: flex;
   align-items: flex-start;
   background-color: #f1f1f1;
-  border-radius: 25px;
-  padding: 0.5rem;
-  width: 100%;
-  margin: 0 auto;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease-in-out;
 }
 
-.search-form:hover {
+.form-inline:hover {
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
 }
 
-.search-form input {
-  flex-grow: 1;
-  border: none;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border-radius: 25px;
-  margin-right: 1rem;
+.form-control {
   background-color: #fff;
   padding-left: 2.5rem;
 }
 
-.search-form input:before {
+.form-control:before {
   content: "\f002";
-  font-family: FontAwesome;
+  font-family: "Font Awesome 5 Free";
   position: absolute;
   left: 1rem;
   font-size: 1.2rem;
   color: #333;
 }
 
-.search-form button {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-@media only screen and (max-width: 600px) {
-  /* Responsive styles for small screens */
-  .search-form {
-  width: 80%;
-  flex-wrap: wrap;
-  }
-  .search-form input {
-  width: 100%;
-  margin-bottom: 0.5rem;
-  }
-  .search-form button {
-  width: 100%;
-  }
-}
 

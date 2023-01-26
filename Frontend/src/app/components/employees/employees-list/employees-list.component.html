@@ -2,33 +2,46 @@
   <div class="header">
     <h1>Employees</h1>
   </div>
-  <employees-list-filter-component></employees-list-filter-component>
   <div>
-    <table class="responsive-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Date of Birth</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let employee of employees">
-            <td>
-              {{ employee.id }}
-            </td>
-            <td>
-              {{ employee.firstName }}
-            </td>
-            <td>
-              {{ employee.lastName }}
-            </td>
-            <td>
-              {{ employee.dateOfBirth | date: 'longDate' }}
-            </td>
-          </tr>
-        </tbody>
-    </table>
+    <employees-list-filter-component (formEmitter)="getFormData($event)"></employees-list-filter-component>
+    <div>
+      <button class="btn btn-primary" (click)="openModalAddEmployee(content)"> {{ addEmployeeModalTitle }}</button>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+          <thead class="table-danger">
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Date of Birth</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees">
+              <td>
+                {{ employee.firstName }}
+              </td>
+              <td>
+                {{ employee.lastName }}
+              </td>
+              <td>
+                {{ employee.dateOfBirth | date: 'longDate' }}
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title"> {{ addEmployeeModalTitle }}</h4>
+      </div>
+      <div class="modal-body">
+        <p>Modal body</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+      </div>
+    </ng-template>
   </div>
 </div>

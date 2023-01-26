@@ -1,7 +1,4 @@
-<!-- Page content -->
-<div>
-  <form class="search-form">
-    <input type="text" placeholder="Search...">
-    <button type="submit">Search</button>
-  </form>
-</div>
+<form class="form-inline my-2">
+  <input class="form-control mr-sm-2" [formControl]="searchFormControl" placeholder="Search employees...">
+  <button class="btn btn-outline-success" (click)="submit()">Search</button>
+</form>

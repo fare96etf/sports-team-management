@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+    db:
+      image: mcr.microsoft.com/mssql/server:2022-latest
+      container_name: sql_server2022
+      ports:
+        - "1433:1433"
+      environment:
+        MSSQL_SA_PASSWORD: bs2001project.
+        ACCEPT_EULA: "Y"
+      restart: always
+    web:
+      build:
+        context: ../Backend/EPMApi/EPMApi
+        dockerfile: .
+      ports:
+        - 8080:80
+      depends_on:
+        - db
+
