@@ -19,25 +19,41 @@ namespace EPMApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> Get([FromQuery] string filter = "")
+        public IEnumerable<Employee> Get([FromQuery] string Filter = "")
         {
-            Console.WriteLine(filter);
             var employees = _databaseContextReadonly.Set<Employee>().ToList().
-                Where(x => x.FirstName.Contains(filter, StringComparison.CurrentCultureIgnoreCase));
+                Where(x => x.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase));
 
             return employees;
         }
 
+        [HttpGet("{Id}")]
+        public Employee Get([FromRoute] int Id)
+        {
+            var employee = _databaseContextReadonly.Set<Employee>().ToList().
+                Where(x => x.Id == Id).FirstOrDefault();
+
+            return employee;
+        }
+
         [HttpPost]
-        public bool Post([FromBody] EmployeeDto employeeDto)
+        public bool Post([FromBody] EmployeeDto employeeDto, [FromForm] IFormFile image)
         {
             try
             {
+                var imageName = $"{employeeDto.FirstName}-{employeeDto.LastName}";
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "assets", imageName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    image.CopyToAsync(stream);
+                }
+
                 var newEmployee = new Employee
                 {
                     FirstName = employeeDto.FirstName,
                     LastName = employeeDto.LastName,
-                    DateOfBirth = employeeDto.DateOfBirth
+                    DateOfBirth = employeeDto.DateOfBirth,
+                    PicturePath = path
                 };
 
                 _databaseContext.Add(newEmployee);
