@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { HttpClientModule  } from '@angular/common/http';
-import { NgbCollapseModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule, NgbDatepickerModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from "@angular/common";
 
@@ -11,11 +11,15 @@ import { CommonModule } from "@angular/common";
     imports: [
         HttpClientModule,
         NgbCollapseModule,
+        NgbDatepickerModule,
         NgbModule,
         ReactiveFormsModule,
         CommonModule
     ],
     exports: [
+        NgbCollapseModule,
+        NgbDatepickerModule,
+        NgbModule,
         ReactiveFormsModule,
         CommonModule
     ],

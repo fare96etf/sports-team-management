@@ -12,13 +12,13 @@ export class EmployeesApiService extends BaseApiService {
         super(http);
     }
 
-    getEmployees (filter: string = '') : Observable<any> {
+    getEmployees(filter: string = '') : Observable<any> {
         const url = this.getBaseEmployeesUrl();
         let params = new HttpParams().set('filter', filter);
         return this.get<any>(url, params);
     }
 
-    insertEmployee (employee: IEmployee) : Observable<any> {
+    insertEmployee(employee: IEmployee) : Observable<any> {
         const url = this.getBaseEmployeesUrl();
         return this.post<boolean>(url, employee);
     }

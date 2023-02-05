@@ -1,6 +1,6 @@
-<div class="content-page">
-  <div class="header">
-    <h1>Employees</h1>
+<div>
+  <div>
+    <h1>Players</h1>
   </div>
   <div>
     <employees-list-filter-component (formEmitter)="getFormData($event)"></employees-list-filter-component>
@@ -17,8 +17,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let employee of employees">
-              <td>
+            <tr *ngFor="let employee of employees | async">
+              <td routerLink="user">
                 {{ employee.firstName }}
               </td>
               <td>
@@ -37,9 +37,27 @@
         <h4 class="modal-title"> {{ addEmployeeModalTitle }}</h4>
       </div>
       <div class="modal-body">
-        <p>Modal body</p>
+        <form [formGroup]="addEmployeeFormGroup">
+          <div class="form-group">
+            <label for="image">Select Image</label>
+            <input id="image" type="file" formControlName="image" (change)="onFileChange($event)" accept="image/*">
+          </div>
+          <div class="form-group">
+            <label for="first-name">First Name</label>
+            <input id="first-name" type="text" formControlName="firstName">  
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input id="last-name" type="text" formControlName="lastName">   
+          </div>
+          <div>
+            <label>Date of Birth</label>
+            <input id="birth-date" type="text" formControlName="birthDate"/>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
+        <button (click)="addNewEmployee()">Add employee</button>
         <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
       </div>
     </ng-template>

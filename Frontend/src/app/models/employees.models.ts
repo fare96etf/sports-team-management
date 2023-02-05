@@ -1,5 +1,6 @@
 export interface IEmployee {
     firstName: string,
     lastName: string,
-    dateOfBirth: Date
+    dateOfBirth: Date,
+    image: FormData
 }
