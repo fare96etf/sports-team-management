@@ -1,15 +1,19 @@
-<div>
-  <div>
-    <h1>Players</h1>
-  </div>
-  <div>
-    <employees-list-filter-component (formEmitter)="getFormData($event)"></employees-list-filter-component>
-    <div>
-      <button class="btn btn-primary" (click)="openModalAddEmployee(content)"> {{ addEmployeeModalTitle }}</button>
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex flex-row">
+      <div class="col d-flex">
+        <h1>Players</h1>
+      </div>
+      <div class="col d-flex justify-content-end align-items-start">
+        <button class="btn btn-info" (click)="openModalAddEmployee(content)"> {{ addEmployeeModalTitle }}</button>
+      </div>
     </div>
+  </div>
+  <div class="card-body">
+    <employees-list-filter-component (formEmitter)="getFormData($event)"></employees-list-filter-component>
     <div class="table-responsive">
       <table class="table table-hover table-sm">
-          <thead class="table-danger">
+          <thead class="table-dark">
             <tr>
               <th>First Name</th>
               <th>Last Name</th>

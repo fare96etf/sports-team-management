@@ -12,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class EmployeesListComponent implements OnInit {
   filter: string = '';
   employees: Observable<IEmployee[]> = new Observable();
-  addEmployeeModalTitle: string = "Add new employee";
+  addEmployeeModalTitle: string = "+ Add new player";
   addEmployeeFormGroup: FormGroup = new FormGroup({
     firstName: new FormControl(''),
     lastName: new FormControl(''),
