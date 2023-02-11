@@ -4,6 +4,7 @@ using EPMApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPMApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230210220715_AddPosition")]
+    partial class AddPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,12 +42,48 @@ namespace EPMApi.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
                     b.Property<string>("PicturePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PositionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PositionId");
+
+                    b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("EPMApi.Models.Position", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("EPMApi.Models.Employee", b =>
+                {
+                    b.HasOne("EPMApi.Models.Position", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId");
+
+                    b.Navigation("Position");
                 });
 #pragma warning restore 612, 618
         }

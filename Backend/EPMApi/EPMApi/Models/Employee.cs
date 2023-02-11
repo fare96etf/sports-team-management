@@ -10,6 +10,12 @@
 
         public DateTime? DateOfBirth { get; set; }
 
+        public int Number { get; set; }
+
+        public int? PositionId { get; set; }
+
+        public virtual Position? Position { get; set; }
+
         public string? PicturePath { get; set; }
     }
 }
