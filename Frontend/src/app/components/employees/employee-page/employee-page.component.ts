@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IEmployee } from 'src/app/models/employees.models';
-import { EmployeesApiService } from 'src/app/services/employees-api.service';
-import { Observable } from 'rxjs/internal/Observable';
 
 @Component({
   selector: 'employee-page-component',
@@ -9,8 +6,9 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class EmployeePageComponent {
   user = {
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
     name: 'John Doe',
-    position: 'Software Engineer'
+    email: 'john.doe@example.com',
+    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer vehicula, ligula a vestibulum tempor, nisi nisi accumsan dui, eu rutrum massa lacus eu magna.'
   };
 }
