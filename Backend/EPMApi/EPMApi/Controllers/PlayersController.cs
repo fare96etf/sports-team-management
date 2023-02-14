@@ -47,24 +47,24 @@ namespace EPMApi.Controllers
         }
 
         [HttpPost]
-        public bool Post([FromBody] PlayerDto employeeDto)
+        public bool Post([FromBody] PlayerDto playerDto)
         {
             try
             {
                 var positionId = _databaseContextReadonly.Set<Position>()
-                    .Where(p => p.ShortName == employeeDto.Position)
+                    .Where(p => p.ShortName == playerDto.Position)
                     .Select(p => p.Id).FirstOrDefault();
 
-                var newEmployee = new Player
+                var newPlayer = new Player
                 {
-                    FirstName = employeeDto.FirstName,
-                    LastName = employeeDto.LastName,
-                    DateOfBirth = employeeDto.DateOfBirth,
+                    FirstName = playerDto.FirstName,
+                    LastName = playerDto.LastName,
+                    DateOfBirth = playerDto.DateOfBirth,
                     PositionId = positionId,
-                    Number = employeeDto.Number
+                    Number = playerDto.Number
                 };
 
-                _databaseContext.Add(newEmployee);
+                _databaseContext.Add(newPlayer);
                 _databaseContext.SaveChanges();
             }
             catch (Exception ex) 
