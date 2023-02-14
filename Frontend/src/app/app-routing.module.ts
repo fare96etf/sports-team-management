@@ -10,8 +10,8 @@ const routes: Routes = [
     loadChildren: () => import('./components/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'employees',
-    loadChildren: () => import('./components/employees/employees.module').then(e => e.EmployeesModule)
+    path: 'players',
+    loadChildren: () => import('./components/players/players.module').then(e => e.PlayersModule)
   },
   // {
   //   path: '**', redirectTo: 'create-error-page', pathMatch: 'full'

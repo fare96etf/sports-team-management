@@ -1,6 +1,6 @@
 ﻿namespace EPMApi.Models
 {
-    public class Employee
+    public class Player
     {
         public int Id { get; set; }
 
@@ -17,5 +17,7 @@
         public virtual Position? Position { get; set; }
 
         public string? PicturePath { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

@@ -5,12 +5,12 @@
         <h1>Players</h1>
       </div>
       <div class="col d-flex justify-content-end align-items-start">
-        <button class="btn btn-primary" (click)="openModalAddEmployee(content)"> + {{ addEmployeeModalTitle }}</button>
+        <button class="btn btn-primary" (click)="openModalAddPlayer(content)"> + {{ addPlayerModalTitle }}</button>
       </div>
     </div>
   </div>
   <div class="card-body">
-    <employees-list-filter-component (formEmitter)="getFormData($event)"></employees-list-filter-component>
+    <players-list-filter-component (formEmitter)="getFormData($event)"></players-list-filter-component>
     <div class="table-responsive">
       <table class="table table-hover table-sm">
           <thead class="table-dark">
@@ -22,18 +22,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let employee of employees | async">
+            <tr *ngFor="let player of players | async">
               <td>
-                {{ employee.number }}
+                {{ player.number }}
               </td>
               <td routerLink="user">
-                {{ employee.firstName + " " + employee.lastName }}
+                {{ player.firstName + " " + player.lastName }}
               </td>
               <td>
-                {{ employee.dateOfBirth | date: 'longDate' }}
+                {{ player.dateOfBirth | date: 'longDate' }}
               </td>
               <td>
-                {{ employee.position }}
+                {{ player.position }}
               </td>
             </tr>
           </tbody>
@@ -45,39 +45,39 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title"> {{ addEmployeeModalTitle }} </h4>
+            <h4 class="modal-title"> {{ addPlayerModalTitle }} </h4>
           </div>
           <div class="modal-body">
-            <form [formGroup]="addEmployeeFormGroup" (ngSubmit)="addNewEmployee()">
+            <form [formGroup]="addPlayerFormGroup" (ngSubmit)="addNewPlayer()">
               <div class="form-group mb-3">
                 <input class="form-control" id="first-name" type="text" formControlName="firstName" 
                         placeholder="First Name" autocomplete="off"> 
-                <div *ngIf="addEmployeeFormGroup.get('firstName')?.touched && 
-                              addEmployeeFormGroup.get('firstName')?.invalid" class="text-danger">
+                <div *ngIf="addPlayerFormGroup.get('firstName')?.touched && 
+                              addPlayerFormGroup.get('firstName')?.invalid" class="text-danger">
                   This field is required
                 </div>
               </div>
               <div class="form-group mb-3">
                 <input class="form-control" id="last-name" type="text" formControlName="lastName" 
                         placeholder="Last Name" autocomplete="off"> 
-                <div *ngIf="addEmployeeFormGroup.get('lastName')?.touched && 
-                              addEmployeeFormGroup.get('lastName')?.invalid" class="text-danger">
+                <div *ngIf="addPlayerFormGroup.get('lastName')?.touched && 
+                              addPlayerFormGroup.get('lastName')?.invalid" class="text-danger">
                  This field is required
                 </div>  
               </div>
               <div class="form-group mb-3">
                 <input class="form-control" id="birth-date" type="text" formControlName="birthDate" 
                         placeholder="Date of Birth" autocomplete="off">
-                <div *ngIf="addEmployeeFormGroup.get('birthDate')?.touched && 
-                              addEmployeeFormGroup.get('birthDate')?.invalid" class="text-danger">
+                <div *ngIf="addPlayerFormGroup.get('birthDate')?.touched && 
+                              addPlayerFormGroup.get('birthDate')?.invalid" class="text-danger">
                 This field is required
                 </div>
               </div>
               <div class="form-group mb-3">
                 <input class="form-control" id="number" type="number" formControlName="number" 
                         placeholder="Number" autocomplete="off" min="0">
-                <div *ngIf="addEmployeeFormGroup.get('number')?.touched && 
-                              addEmployeeFormGroup.get('number')?.invalid" class="text-danger">
+                <div *ngIf="addPlayerFormGroup.get('number')?.touched && 
+                              addPlayerFormGroup.get('number')?.invalid" class="text-danger">
                 This field is required
                 </div>                  
               </div>
@@ -86,13 +86,13 @@
                   <option selected disabled value="">Position</option>
                   <option *ngFor="let position of positions | async"> {{ position.shortName }} </option>
                 </select>
-                <div *ngIf="addEmployeeFormGroup.get('position')?.touched && 
-                              addEmployeeFormGroup.get('position')?.invalid" class="text-danger">
+                <div *ngIf="addPlayerFormGroup.get('position')?.touched && 
+                              addPlayerFormGroup.get('position')?.invalid" class="text-danger">
                 This field is required
                 </div>
               </div>
               <div class="modal-footer form-group">
-                <button class="btn btn-secondary" type="button" (click)="closeModalAddEmployee()">Close</button>
+                <button class="btn btn-secondary" type="button" (click)="closeModalAddPlayer()">Close</button>
                 <button class="btn btn-primary" type="submit">Add player</button>
               </div>
             </form>

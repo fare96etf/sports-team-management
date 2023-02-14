@@ -8,24 +8,24 @@ namespace EPMApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class EmployeesController : ControllerBase
+    public class PlayersController : ControllerBase
     {
         private readonly DatabaseContext _databaseContextReadonly;
         private DatabaseContext _databaseContext;
 
-        public EmployeesController(DatabaseContext databaseContextReadonly, DatabaseContext databaseContext)
+        public PlayersController(DatabaseContext databaseContextReadonly, DatabaseContext databaseContext)
         {
             _databaseContextReadonly = databaseContextReadonly;
             _databaseContext = databaseContext;
         }
 
         [HttpGet]
-        public IEnumerable<EmployeeDto> Get([FromQuery] string Filter = "")
+        public IEnumerable<PlayerDto> Get([FromQuery] string Filter = "")
         {
-            var employees = _databaseContextReadonly.Set<Employee>().Include(x => x.Position).ToList()
+            var employees = _databaseContextReadonly.Set<Player>().Include(x => x.Position).ToList()
                 .Where(x => x.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)
                         || x.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
-                .Select(emp => new EmployeeDto()
+                .Select(emp => new PlayerDto()
                 {
                     FirstName = emp.FirstName,
                     LastName = emp.LastName,
@@ -38,16 +38,16 @@ namespace EPMApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public Employee Get([FromRoute] int Id)
+        public Player Get([FromRoute] int Id)
         {
-            var employee = _databaseContextReadonly.Set<Employee>().ToList().
+            var employee = _databaseContextReadonly.Set<Player>().ToList().
                 Where(x => x.Id == Id).FirstOrDefault();
 
             return employee;
         }
 
         [HttpPost]
-        public bool Post([FromBody] EmployeeDto employeeDto)
+        public bool Post([FromBody] PlayerDto employeeDto)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace EPMApi.Controllers
                     .Where(p => p.ShortName == employeeDto.Position)
                     .Select(p => p.Id).FirstOrDefault();
 
-                var newEmployee = new Employee
+                var newEmployee = new Player
                 {
                     FirstName = employeeDto.FirstName,
                     LastName = employeeDto.LastName,

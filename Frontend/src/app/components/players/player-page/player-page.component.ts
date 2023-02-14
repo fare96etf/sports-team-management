@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'employee-page-component',
-  templateUrl: './employee-page.component.html'
+  selector: 'player-page-component',
+  templateUrl: './player-page.component.html'
 })
-export class EmployeePageComponent {
+export class PlayerPageComponent {
   user = {
     name: 'John Doe',
     email: 'john.doe@example.com',

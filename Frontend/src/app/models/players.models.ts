@@ -1,4 +1,4 @@
-export interface IEmployee {
+export interface IPlayer {
     firstName: string,
     lastName: string,
     dateOfBirth: Date,

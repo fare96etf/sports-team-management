@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
-  selector: 'employees-list-filter-component',
-  templateUrl: './employees-list-filter.component.html'
+  selector: 'players-list-filter-component',
+  templateUrl: './players-list-filter.component.html'
 })
-export class EmployeesListFilterComponent implements OnInit, OnDestroy {
+export class PlayersListFilterComponent implements OnInit, OnDestroy {
   @Output() formEmitter = new EventEmitter<any>();
   searchFormControl = new FormControl('');
   subscription: Subscription = new Subscription();

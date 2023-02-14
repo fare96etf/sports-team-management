@@ -5,7 +5,7 @@ import { BaseApiService } from "../shared/services/base-api.service";
 
 @Injectable({providedIn:'root'})
 export class PositionsApiService extends BaseApiService {
-    private employeesBaseUrl = "positions";
+    private PlayersBaseUrl = "positions";
 
     constructor (http: HttpClient) {
         super(http);
@@ -17,6 +17,6 @@ export class PositionsApiService extends BaseApiService {
     }
 
     private getBasePositionsUrl() {
-        return `${this.getBaseUrl()}${this.employeesBaseUrl}`;
+        return `${this.getBaseUrl()}${this.PlayersBaseUrl}`;
     }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IEmployee } from 'src/app/models/employees.models';
-import { EmployeesApiService } from 'src/app/services/employees-api.service';
+import { IPlayer } from 'src/app/models/players.models';
+import { PlayersApiService } from 'src/app/services/players-api.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/internal/Observable';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,15 +8,15 @@ import { IPosition } from 'src/app/models/positions.models';
 import { PositionsApiService } from 'src/app/services/positions-api.service';
 
 @Component({
-  selector: 'employees-list-component',
-  templateUrl: './employees-list.component.html'
+  selector: 'players-list-component',
+  templateUrl: './players-list.component.html'
 })
-export class EmployeesListComponent implements OnInit {
+export class PlayersListComponent implements OnInit {
   filter: string = '';
   positions: Observable<IPosition[]> = new Observable();
-  employees: Observable<IEmployee[]> = new Observable();
-  addEmployeeModalTitle: string = "Add new player";
-  addEmployeeFormGroup: FormGroup = new FormGroup({
+  players: Observable<IPlayer[]> = new Observable();
+  addPlayerModalTitle: string = "Add new player";
+  addPlayerFormGroup: FormGroup = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
@@ -24,15 +24,15 @@ export class EmployeesListComponent implements OnInit {
     position:  new FormControl('', [Validators.required])
   });
 
-  constructor(private employeesApiService: EmployeesApiService, private positionsApiService: PositionsApiService, private modalService: NgbModal) {}
+  constructor(private playersApiService: PlayersApiService, private positionsApiService: PositionsApiService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
       this.getPositions();
-      this.getEmployees();
+      this.getPlayers();
   }
 
-  getEmployees() {
-    this.employees = this.employeesApiService.getEmployees(this.filter);
+  getPlayers() {
+    this.players = this.playersApiService.getPlayers(this.filter);
   }
 
   getPositions() {
@@ -41,39 +41,37 @@ export class EmployeesListComponent implements OnInit {
 
   getFormData(filter: any) {
     this.filter = filter;
-    this.getEmployees();
+    this.getPlayers();
   }
 
-  openModalAddEmployee(content: any) {
+  openModalAddPlayer(content: any) {
     this.modalService.open(content, { size: 'sm' });
   }
   
-  closeModalAddEmployee() {
+  closeModalAddPlayer() {
     this.modalService.dismissAll();
-    this.resetFormNewEmployee();
+    this.resetFormNewPlayer();
   }
 
-  addNewEmployee() {
-    if (!this.addEmployeeFormGroup.valid) return;
+  addNewPlayer() {
+    if (!this.addPlayerFormGroup.valid) return;
 
-    let newEmployee: IEmployee = {
-      firstName: this.addEmployeeFormGroup.value.firstName,
-      lastName: this.addEmployeeFormGroup.value.lastName,
-      dateOfBirth: this.addEmployeeFormGroup.value.birthDate,
-      position: this.addEmployeeFormGroup.value.position,
-      number: this.addEmployeeFormGroup.value.number
+    let newPlayer: IPlayer = {
+      firstName: this.addPlayerFormGroup.value.firstName,
+      lastName: this.addPlayerFormGroup.value.lastName,
+      dateOfBirth: this.addPlayerFormGroup.value.birthDate,
+      position: this.addPlayerFormGroup.value.position,
+      number: this.addPlayerFormGroup.value.number
     };
 
-    console.log(newEmployee);
-
-    this.employeesApiService.insertEmployee(newEmployee).subscribe(
-      data => { console.log(data); this.closeModalAddEmployee(); this.getEmployees(); },
+    this.playersApiService.insertPlayer(newPlayer).subscribe(
+      data => { console.log(data); this.closeModalAddPlayer(); this.getPlayers(); },
       error => console.log(error)
     );    
   }
 
-  resetFormNewEmployee() {
-    this.addEmployeeFormGroup = new FormGroup({
+  resetFormNewPlayer() {
+    this.addPlayerFormGroup = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       birthDate: new FormControl('', [Validators.required]),

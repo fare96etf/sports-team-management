@@ -1,6 +1,6 @@
 ﻿namespace EPMApi.Dtos
 {
-    public class EmployeeDto
+    public class PlayerDto
     {
         public string? FirstName { get; set; }
 

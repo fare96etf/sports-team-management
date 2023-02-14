@@ -15,13 +15,31 @@
         <div class="col-md-8">
           <form>
             <div class="form-group row">
-              <label for="name" class="col-3 col-form-label">Name</label>
+              <label for="name" class="col-3 col-form-label">Full name</label>
               <div class="col-9">
                 <input type="text" class="form-control-plaintext" id="name" [value]="user.name" readonly>
               </div>
             </div>
             <div class="form-group row">
-              <label for="email" class="col-3 col-form-label">Email</label>
+              <label for="name" class="col-3 col-form-label">Date of birth</label>
+              <div class="col-9">
+                <input type="text" class="form-control-plaintext" id="name" [value]="user.name" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="name" class="col-3 col-form-label">Number</label>
+              <div class="col-9">
+                <input type="text" class="form-control-plaintext" id="name" [value]="user.name" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="name" class="col-3 col-form-label">Position</label>
+              <div class="col-9">
+                <input type="text" class="form-control-plaintext" id="name" [value]="user.name" readonly>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-3 col-form-label">Nationality</label>
               <div class="col-9">
                 <input type="email" class="form-control-plaintext" id="email" [value]="user.email" readonly>
               </div>
@@ -35,6 +53,10 @@
           </form>
         </div>
       </div>
+
+      <div class="row"></div>
+        <span>STATISTIKA</span>
+        <player-stats-component></player-stats-component>
     </div>    
   </div>
 </div>
