@@ -18,9 +18,19 @@ export class PlayersApiService extends BaseApiService {
         return this.get<any>(url, params);
     }
 
+    getPlayer(id: number) : Observable<any> {
+        const url = `${this.getBasePlayersUrl()}/${id.toString()}`;
+        return this.get<any>(url);
+    }
+
     insertPlayer(employee: IPlayer) : Observable<any> {
         const url = this.getBasePlayersUrl();
         return this.post<boolean>(url, employee);
+    }
+
+    getPlayerStats(playerId: number) : Observable<any> {
+        const url =  `${this.getBasePlayersUrl()}/stats/${playerId.toString()}`;
+        return this.get<any>(url);
     }
 
     private getBasePlayersUrl() {

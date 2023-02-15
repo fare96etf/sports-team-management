@@ -24,6 +24,8 @@
 
         public bool IsRegistered { get; set; }
 
+        public bool IsBench { get; set; }
+
         public bool IsPlayed { get; set; }
     }
 }

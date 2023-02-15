@@ -4,6 +4,7 @@ using EPMApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPMApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230215115229_AddPlayerStats")]
+    partial class AddPlayerStats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,13 +188,13 @@ namespace EPMApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Appearances")
-                        .HasColumnType("int");
-
                     b.Property<int>("Assists")
                         .HasColumnType("int");
 
-                    b.Property<int>("CompetitionSeasonId")
+                    b.Property<int?>("CompetitionSeasonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompetitonSeasonId")
                         .HasColumnType("int");
 
                     b.Property<int>("Goals")
@@ -201,9 +204,6 @@ namespace EPMApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("RedCards")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubstituteAppearances")
                         .HasColumnType("int");
 
                     b.Property<int>("YellowCards")
@@ -315,9 +315,7 @@ namespace EPMApi.Migrations
                 {
                     b.HasOne("EPMApi.Models.CompetitionSeason", "CompetitionSeason")
                         .WithMany()
-                        .HasForeignKey("CompetitionSeasonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CompetitionSeasonId");
 
                     b.HasOne("EPMApi.Models.Player", "Player")
                         .WithMany()

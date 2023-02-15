@@ -4,6 +4,7 @@ using EPMApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPMApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20230215120437_AddPlayerStatsFix")]
+    partial class AddPlayerStatsFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,9 +188,6 @@ namespace EPMApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Appearances")
-                        .HasColumnType("int");
-
                     b.Property<int>("Assists")
                         .HasColumnType("int");
 
@@ -201,9 +201,6 @@ namespace EPMApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("RedCards")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubstituteAppearances")
                         .HasColumnType("int");
 
                     b.Property<int>("YellowCards")

@@ -22,28 +22,57 @@ namespace EPMApi.Controllers
         [HttpGet]
         public IEnumerable<PlayerDto> Get([FromQuery] string Filter = "")
         {
-            var employees = _databaseContextReadonly.Set<Player>().Include(x => x.Position).ToList()
+            var players = _databaseContextReadonly.Set<Player>().Include(x => x.Position).ToList()
                 .Where(x => x.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)
                         || x.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
-                .Select(emp => new PlayerDto()
+                .Select(pl => new PlayerDto()
                 {
-                    FirstName = emp.FirstName,
-                    LastName = emp.LastName,
-                    DateOfBirth = emp.DateOfBirth,
-                    Position = emp.Position.ShortName,
-                    Number = emp.Number
+                    FullName = $"{pl.FirstName} {pl.LastName}",
+                    DateOfBirth = pl.DateOfBirth,
+                    Position = pl.Position.ShortName,
+                    Number = pl.Number
                 });
 
-            return employees;
+            return players;
         }
 
         [HttpGet("{Id}")]
-        public Player Get([FromRoute] int Id)
+        public PlayerDto Get([FromRoute] int Id)
         {
-            var employee = _databaseContextReadonly.Set<Player>().ToList().
-                Where(x => x.Id == Id).FirstOrDefault();
+            var player = _databaseContextReadonly.Set<Player>()
+                .Include(x => x.Position)
+                .Where(pl => pl.Id == Id)
+                .Select(pl => new PlayerDto
+                {
+                    FullName = $"{pl.FirstName} {pl.LastName}",
+                    DateOfBirth = pl.DateOfBirth,
+                    Position = pl.Position.Name,
+                    Number = pl.Number
+                }).FirstOrDefault();
 
-            return employee;
+            return player;
+        }
+
+        [HttpGet("stats/{PlayerId}")]
+        public IEnumerable<PlayerStatsDto> GetPlayerStats([FromRoute] int PlayerId)
+        {
+            var playerStats = _databaseContextReadonly.Set<PlayerStats>()
+                .Include(x => x.CompetitionSeason)
+                    .ThenInclude(x => x.Season)
+                .Where(x => x.PlayerId == PlayerId)
+                .Select(x => new PlayerStatsDto
+                {
+                    CompetitionId = x.CompetitionSeasonId,
+                    Season = x.CompetitionSeason.Season.Name,
+                    Appearances = x.Appearances,
+                    SubstituteAppearances = x.SubstituteAppearances,
+                    Goals = x.Goals,
+                    Assists = x.Assists,
+                    YellowCards = x.YellowCards,
+                    RedCards = x.RedCards
+                }).ToList();
+
+            return playerStats;
         }
 
         [HttpPost]

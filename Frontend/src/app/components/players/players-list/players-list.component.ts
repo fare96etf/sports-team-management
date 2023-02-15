@@ -57,6 +57,7 @@ export class PlayersListComponent implements OnInit {
     if (!this.addPlayerFormGroup.valid) return;
 
     let newPlayer: IPlayer = {
+      fullName: '',
       firstName: this.addPlayerFormGroup.value.firstName,
       lastName: this.addPlayerFormGroup.value.lastName,
       dateOfBirth: this.addPlayerFormGroup.value.birthDate,
