@@ -18,8 +18,8 @@ export class PlayersApiService extends BaseApiService {
         return this.get<any>(url, params);
     }
 
-    getPlayer(id: number) : Observable<any> {
-        const url = `${this.getBasePlayersUrl()}/${id.toString()}`;
+    getPlayer(id: string) : Observable<any> {
+        const url = `${this.getBasePlayersUrl()}/${id}`;
         return this.get<any>(url);
     }
 
@@ -28,8 +28,8 @@ export class PlayersApiService extends BaseApiService {
         return this.post<boolean>(url, employee);
     }
 
-    getPlayerStats(playerId: number) : Observable<any> {
-        const url =  `${this.getBasePlayersUrl()}/stats/${playerId.toString()}`;
+    getPlayerStats(playerId: number, competitionId: number) : Observable<any> {
+        const url =  `${this.getBasePlayersUrl()}/stats/${playerId.toString()}/competition/${competitionId.toString()}`;
         return this.get<any>(url);
     }
 

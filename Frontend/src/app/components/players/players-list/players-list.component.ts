@@ -56,6 +56,7 @@ export class PlayersListComponent implements OnDestroy {
     if (!this.addPlayerFormGroup.valid) return;
 
     let newPlayer: IPlayer = {
+      id: 0,
       fullName: '',
       firstName: this.addPlayerFormGroup.value.firstName,
       lastName: this.addPlayerFormGroup.value.lastName,

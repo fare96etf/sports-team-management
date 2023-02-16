@@ -9,55 +9,64 @@
   <div class="card-body">
     <div class="container">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
           <img [src]="user.avatar" alt="avatar" class="img-thumbnail">
           <span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}</span> 
         </div>
-        <div class="col-md-8">
+        <div class="col-sm-6">
           <form>
-            <div class="form-group row">
-              <label for="name" class="col-3 col-form-label">Full name</label>
-              <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.fullName" readonly>
+            <div class="input-group flex-nowrap">
+              <div class="col">
+                <span class="input-group-text">Full name:</span>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name" [value]="(player$ | async)?.fullName" readonly>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="name" class="col-3 col-form-label">Date of birth</label>
-              <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.dateOfBirth | date: 'longDate'" readonly>
+            <div class="input-group flex-nowrap">
+              <div class="col">
+                <span class="input-group-text">Date of birth</span>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name" [value]="(player$ | async)?.dateOfBirth | date: 'longDate'" readonly>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="name" class="col-3 col-form-label">Number</label>
-              <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.number" readonly>
+            <div class="input-group flex-nowrap">
+              <div class="col">
+                <span class="input-group-text">Number</span>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name" [value]="(player$ | async)?.number" readonly>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="name" class="col-3 col-form-label">Position</label>
-              <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.position" readonly>
+            <div class="input-group flex-nowrap">
+              <div class="col">
+                <span class="input-group-text">Position</span>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" id="name" [value]="(player$ | async)?.position" readonly>
               </div>
             </div>
-            <div class="form-group row">
-              <label for="email" class="col-3 col-form-label">Nationality</label>
-              <div class="col-9">
-                <input type="email" class="form-control-plaintext" id="email" [value]="user.email" readonly>
+            <div class="input-group flex-nowrap">
+              <div class="col">
+                <span class="input-group-text">Nationality</span>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="bio" class="col-3 col-form-label">Bio</label>
-              <div class="col-9">
-                <textarea class="form-control-plaintext" id="bio" rows="3" [value]="user.bio" readonly></textarea>
+              <div class="col">
+                <input type="email" class="form-control" id="email" [value]="user.email" readonly>
               </div>
             </div>
           </form>
         </div>
       </div>
 
-      <div class="row"></div>
+      <div class="row mt-3">
+        <h4>Biography</h4>
+        <textarea class="form-control" id="bio" rows="8" [value]="user.bio" readonly></textarea>
+      </div>
+
+      <div class="row mt-3"></div>
         <h4>Stats</h4>
-        <player-stats-component></player-stats-component>
+        <player-stats-component [playerId]="playerId"></player-stats-component>
     </div>    
   </div>
 </div>

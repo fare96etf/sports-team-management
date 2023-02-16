@@ -9,7 +9,7 @@ const routes: Routes = [
     component: PlayersListComponent
   },
   {
-    path: 'user',
+    path: ':playerId',
     component: PlayerPageComponent
   }
 ];

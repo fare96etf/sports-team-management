@@ -27,6 +27,7 @@ namespace EPMApi.Controllers
                         || x.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
                 .Select(pl => new PlayerDto()
                 {
+                    Id = pl.Id,
                     FullName = $"{pl.FirstName} {pl.LastName}",
                     DateOfBirth = pl.DateOfBirth,
                     Position = pl.Position.ShortName,
@@ -53,13 +54,13 @@ namespace EPMApi.Controllers
             return player;
         }
 
-        [HttpGet("stats/{PlayerId}")]
-        public IEnumerable<PlayerStatsDto> GetPlayerStats([FromRoute] int PlayerId)
+        [HttpGet("stats/{PlayerId}/competition/{CompetitionId}")]
+        public IEnumerable<PlayerStatsDto> GetPlayerStats([FromRoute] int PlayerId, [FromRoute] int CompetitionId)
         {
             var playerStats = _databaseContextReadonly.Set<PlayerStats>()
                 .Include(x => x.CompetitionSeason)
                     .ThenInclude(x => x.Season)
-                .Where(x => x.PlayerId == PlayerId)
+                .Where(x => x.PlayerId == PlayerId && x.CompetitionSeason.CompetitionId == CompetitionId)
                 .Select(x => new PlayerStatsDto
                 {
                     CompetitionId = x.CompetitionSeasonId,

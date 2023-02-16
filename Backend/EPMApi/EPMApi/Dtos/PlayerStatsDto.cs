@@ -17,5 +17,7 @@
         public int YellowCards { get; set; }
 
         public int RedCards { get; set; }
+
+        public int CleanSheets { get; set; }
     }
 }
