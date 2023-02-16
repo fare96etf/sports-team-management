@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPlayerStats } from 'src/app/models/players.models';
 import { PlayersApiService } from 'src/app/services/players-api.service';
@@ -7,16 +7,10 @@ import { PlayersApiService } from 'src/app/services/players-api.service';
   selector: 'player-stats-component',
   templateUrl: './player-stats.component.html'
 })
-export class PlayerStatsComponent implements OnInit {
-  playerStats: Observable<IPlayerStats[]> = new Observable();
+export class PlayerStatsComponent {
+  playerStats$: Observable<IPlayerStats[]>;
 
-  constructor (private playersApiService: PlayersApiService) {}
-  
-  ngOnInit(): void {
-    this.getPlayerStats();
-  }
-
-  getPlayerStats() {
-    this.playerStats = this.playersApiService.getPlayerStats(1);
+  constructor (private playersApiService: PlayersApiService) {
+    this.playerStats$ = this.playersApiService.getPlayerStats(1);
   }
 }

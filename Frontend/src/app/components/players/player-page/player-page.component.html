@@ -6,37 +6,37 @@
       </div>
     </div>
   </div>
-  <div class="card-body" *ngIf="isLoaded">
+  <div class="card-body">
     <div class="container">
       <div class="row">
         <div class="col-md-4">
           <img [src]="user.avatar" alt="avatar" class="img-thumbnail">
-          <span>{{ player.fullName }} #{{ player.number }}</span> 
+          <span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}</span> 
         </div>
         <div class="col-md-8">
           <form>
             <div class="form-group row">
               <label for="name" class="col-3 col-form-label">Full name</label>
               <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="player.fullName" readonly>
+                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.fullName" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="name" class="col-3 col-form-label">Date of birth</label>
               <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="player.dateOfBirth | date: 'longDate'" readonly>
+                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.dateOfBirth | date: 'longDate'" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="name" class="col-3 col-form-label">Number</label>
               <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="player.number" readonly>
+                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.number" readonly>
               </div>
             </div>
             <div class="form-group row">
               <label for="name" class="col-3 col-form-label">Position</label>
               <div class="col-9">
-                <input type="text" class="form-control-plaintext" id="name" [value]="player.position" readonly>
+                <input type="text" class="form-control-plaintext" id="name" [value]="(player$ | async)?.position" readonly>
               </div>
             </div>
             <div class="form-group row">

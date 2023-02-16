@@ -22,12 +22,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let player of players | async">
+            <tr *ngFor="let player of players$ | async">
               <td>
                 {{ player.number }}
               </td>
               <td routerLink="user">
-                {{ player.firstName + " " + player.lastName }}
+                {{ player.fullName }}
               </td>
               <td>
                 {{ player.dateOfBirth | date: 'longDate' }}
@@ -84,7 +84,7 @@
               <div class="form-group mb-3">
                 <select class="form-select" id="position" formControlName="position">
                   <option selected disabled value="">Position</option>
-                  <option *ngFor="let position of positions | async"> {{ position.shortName }} </option>
+                  <option *ngFor="let position of positions$ | async"> {{ position.shortName }} </option>
                 </select>
                 <div *ngIf="addPlayerFormGroup.get('position')?.touched && 
                               addPlayerFormGroup.get('position')?.invalid" class="text-danger">
