@@ -9,9 +9,13 @@
   <div class="card-body">
     <div class="container">
       <div class="row">
-        <div class="col-sm-4">
-          <img [src]="user.avatar" alt="avatar" class="img-thumbnail">
-          <span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}</span> 
+        <div class="col-sm-4 d-flex justify-content-center">
+          <figure class="figure img-size">
+            <img class="figure-img img-fluid rounded-circle" [src]="user.avatar" alt="avatar">
+            <figcaption class="figure-caption text-dark text-wrap text-center fs-4 fw-bold">
+              <span class="fi fi-ba"></span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}
+            </figcaption>
+          </figure>
         </div>
         <div class="col-sm-6">
           <form>
