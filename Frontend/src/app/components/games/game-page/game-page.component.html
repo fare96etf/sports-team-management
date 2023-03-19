@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex flex-row">
+      <div class="col d-flex">
+        <h1>{{ (game$ | async)?.competitionName }}, 3. round</h1>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+
+      <div class="game-score">
+        <div class="d-inline"> {{ (game$ | async)?.team1 }} </div>
+        <div class="d-inline"> {{ (game$ | async)?.result }} </div>
+        <div class="d-inline"> {{ (game$ | async)?.team2 }} </div>
+
+        <div>Spectators: {{ (game$ | async)?.spectators }}</div>
+      </div>
+
+      
+      <div class="game-field text-white d-flex justify-content-center">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="game-field-content">Ramsdale</div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <div class="game-field-content">Zinchenko</div>
+          <div class="game-field-content">Gabriel</div>
+          <div class="game-field-content">Saliba</div>
+          <div class="game-field-content">White</div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <div class="game-field-content">Martinelli</div>
+          <div class="game-field-content">Xhaka</div>
+          <div class="game-field-content">Odegaard</div>
+          <div class="game-field-content">Partey</div>
+          <div class="game-field-content">Saka</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <div class="game-field-content">G.Jesus</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <div class="game-field-content">Weghorst</div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <div class="game-field-content">Anthony</div>
+          <div class="game-field-content">Casemiro</div>
+          <div class="game-field-content">Fernandes</div>
+          <div class="game-field-content">Fred</div>
+          <div class="game-field-content">Rashford</div>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+          <div class="game-field-content">Malacia</div>
+          <div class="game-field-content">Martinez</div>
+          <div class="game-field-content">Varane</div>
+          <div class="game-field-content">Shaw</div>
+        </div>
+        <div class="d-flex flex-column justify-content-center">
+          <div class="game-field-content">De Gea</div>
+        </div>
+      </div>
+    
+    </div>
+  </div>
+</div>

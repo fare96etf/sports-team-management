@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { Observable } from "rxjs";
 
 @Injectable({providedIn:'root'})
@@ -11,7 +11,7 @@ export abstract class BaseApiService {
     get<TResponse> (url: string, params?: HttpParams): Observable<TResponse> {
         return this.http.get<TResponse>(url, { params: params });
     }
-
+    
     getWithHeaders<TResponse> (url: string, headers?: HttpHeaders): Observable<TResponse> {
         return this.http.get<TResponse>(url, { headers });
     }

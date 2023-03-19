@@ -1,0 +1,12 @@
+<div class="input-group mb-3">
+  <div class="col me-2">
+    <select class="form-control form-select" [formControl]="competitionFormControl">
+      <option selected value="0">Select competition...</option>
+      <option *ngFor="let competition of competitions$ | async" [ngValue]="competition.id"> {{ competition.name }} </option>
+    </select>
+  </div>
+  <div class="col ms-2">
+    <input class="form-control" [formControl]="searchFormControl" placeholder="Search opponents...">
+  </div>
+</div>
+

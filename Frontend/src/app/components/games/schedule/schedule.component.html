@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex flex-row">
+      <div class="col d-flex">
+        <h1>Schedule</h1>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr class="text-center">
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <h4>Games list</h4>
+        <games-list-filter-component (formEmitter)="getFormData($event)"></games-list-filter-component>
+        <div class="table-responsive">
+          <table class="table table-hover table-sm">
+              <thead class="table-dark">
+                <tr>
+                  <th>Home team</th>
+                  <th>Away team</th>
+                  <th>Result</th>
+                  <th>Competition</th>
+                  <th>Round</th>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Spectators</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let game of games$ | async">
+                  <td [ngClass]="{'fw-bold': game.isHomeGame === true}">
+                    {{ game.team1 }}
+                  </td>
+                  <td [ngClass]="{'fw-bold': game.isHomeGame === false}">
+                    {{ game.team2 }}
+                  </td>
+                  <td routerLink="{{ game.id }}">
+                    {{ game.result }}
+                  </td>
+                  <td>
+                    {{ game.competitionName }}
+                  </td>
+                  <td>
+                    {{ game.competitionRound }}
+                  </td>
+                  <td>
+                    {{ game.time | date: 'longDate' }}
+                  </td>
+                  <td>
+                    {{ game.time | date: 'shortTime' }}
+                  </td>
+                  <td>
+                    {{ game.spectators }}
+                  </td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'players',
     loadChildren: () => import('./components/players/players.module').then(e => e.PlayersModule)
   },
+  {
+    path: 'schedule',
+    loadChildren: () => import('./components/games/games.module').then(e => e.GamesModule)
+  }
   // {
   //   path: '**', redirectTo: 'create-error-page', pathMatch: 'full'
   // }

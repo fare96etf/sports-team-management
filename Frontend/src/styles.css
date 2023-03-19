@@ -3,3 +3,32 @@
     max-height: 300px;
     max-width: 300px;
 }
+
+.game-score {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight: bolder;
+}
+
+.game-field {
+    width: 400px;
+    height: 270px;
+    background-image: url(assets/soccer_field.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font: bold;
+    font-size: smaller;
+}
+
+@media only screen and (max-width: 480px) {
+  .game-field {
+    transform: rotate(90deg) translateY(130px);
+    height: 400px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .game-field-content {
+    transform: rotate(-90deg) translateX(66px);
+  }
+}
