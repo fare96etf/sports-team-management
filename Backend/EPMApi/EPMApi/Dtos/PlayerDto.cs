@@ -1,6 +1,9 @@
-﻿namespace EPMApi.Dtos
+﻿using EPMApi.Dtos.Base;
+using EPMApi.Models;
+
+namespace EPMApi.Dtos
 {
-    public class PlayerDto
+    public class PlayerDto : BaseDto<Player, PlayerDto>
     {
         public int Id { get; set; }
 
@@ -15,5 +18,12 @@
         public int Number { get; set; }
 
         public string? Position { get; set; }
+
+        public override void AddCustomMappings()
+        {
+            SetCustomMappings()
+                .Map(dest => dest.FullName, src => src.GetFullName())
+                .Map(dest => dest.Position, src => src.Position.ShortName);
+        }
     }
 }

@@ -19,5 +19,10 @@
         public string? PicturePath { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public string GetFullName()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

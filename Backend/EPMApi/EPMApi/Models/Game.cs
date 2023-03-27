@@ -27,6 +27,11 @@ namespace EPMApi.Models
         public virtual CompetitionSeason? CompetitionSeason { get; set; }
 
         public string GetResult() { 
+            if (ScoreTeam1 == null || ScoreTeam2 == null)
+            {
+                return "TBD";
+            }
+
             var result = $"{ScoreTeam1} : {ScoreTeam2}";
                 
             if (!IsHomeGame)

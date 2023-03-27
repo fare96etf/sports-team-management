@@ -1,3 +1,4 @@
+using EPMApi.Infrastructure.Configuration;
 using EPMApi.Persistance;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("ConnectionStri
 builder.Services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(connectionString));
 
+builder.Services.AddMapster();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

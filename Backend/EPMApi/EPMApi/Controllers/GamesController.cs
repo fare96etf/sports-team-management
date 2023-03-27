@@ -1,7 +1,7 @@
 ﻿using EPMApi.Dtos;
-using EPMApi.Dtos.Filters;
 using EPMApi.Models;
 using EPMApi.Persistance;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,8 +22,10 @@ namespace EPMApi.Controllers
         public IEnumerable<GameDto> Get([FromQuery] string? Filter, [FromQuery] string? CompetitionId)
         {
             var games = _databaseContextReadonly.Set<Game>()
-                .Include(x => x.CompetitionSeason)
-                    .ThenInclude(x => x.Competition).AsEnumerable();
+                                                .Include(gm => gm.CompetitionSeason)
+                                                    .ThenInclude(cs => cs.Competition)
+                                                .AsEnumerable()
+                                                .Where(gm => gm.IsCompleted);
 
             if (!string.IsNullOrWhiteSpace(Filter))
             {
@@ -36,18 +38,27 @@ namespace EPMApi.Controllers
                 games = games.Where(x => CompetitionId == "0" || x.CompetitionSeason.CompetitionId.ToString() == CompetitionId);
             }
 
-            var result = games.Select(gm => new GameDto 
-            {
-                Id = gm.Id,
-                Team1 = gm.Team1,
-                Team2 = gm.Team2,
-                Result = gm.GetResult(),
-                CompetitionName = gm.CompetitionSeason.Competition.Name,
-                CompetitionRound = "",
-                Time = gm.Time,
-                Spectators = gm.Spectators,
-                IsHomeGame = gm.IsHomeGame
-            }).OrderByDescending(gm => gm.Time);
+            var result = games.AsQueryable() 
+                              .ProjectToType<GameDto>()
+                              .OrderByDescending(gm => gm.Time);
+
+            return result;
+        }
+
+        [HttpGet("month")]
+        public IEnumerable<GameDto> GetGamesByMonth()
+        {
+            var today = DateTime.Now;
+
+            var games = _databaseContextReadonly.Set<Game>()
+                                                .Include(gm => gm.CompetitionSeason)
+                                                    .ThenInclude(gm => gm.Competition)
+                                                .AsEnumerable()
+                                                .Where(gm => gm.Time.Year == today.Year && gm.Time.Month == today.Month);
+
+            var result = games.AsQueryable()
+                              .ProjectToType<GameDto>()
+                              .OrderByDescending(gm => gm.Time);
 
             return result;
         }
@@ -56,20 +67,10 @@ namespace EPMApi.Controllers
         public GameDto Get([FromRoute] int Id)
         {
             var game = _databaseContextReadonly.Set<Game>()
-                .Include(x => x.CompetitionSeason)
-                    .ThenInclude(x => x.Competition)
-                .Where(gm => gm.Id == Id)
-                .Select(gm => new GameDto
-                {
-                    Team1 = gm.Team1,
-                    Team2 = gm.Team2,
-                    Result = gm.GetResult(),
-                    CompetitionName = gm.CompetitionSeason.Competition.Name,
-                    CompetitionRound = "",
-                    Time = gm.Time,
-                    Spectators = gm.Spectators,
-                    IsHomeGame = gm.IsHomeGame
-                }).FirstOrDefault();
+                                               .Include(x => x.CompetitionSeason)
+                                                    .ThenInclude(x => x.Competition)
+                                               .Where(gm => gm.Id == Id)
+                                               .FirstOrDefault()?.Adapt<GameDto>();
 
             return game;
         }

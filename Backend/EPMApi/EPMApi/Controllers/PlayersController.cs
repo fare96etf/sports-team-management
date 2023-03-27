@@ -1,6 +1,7 @@
 using EPMApi.Dtos;
 using EPMApi.Models;
 using EPMApi.Persistance;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,17 +23,12 @@ namespace EPMApi.Controllers
         [HttpGet]
         public IEnumerable<PlayerDto> Get([FromQuery] string Filter = "")
         {
-            var players = _databaseContextReadonly.Set<Player>().Include(x => x.Position).ToList()
-                .Where(x => x.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)
-                        || x.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase))
-                .Select(pl => new PlayerDto()
-                {
-                    Id = pl.Id,
-                    FullName = $"{pl.FirstName} {pl.LastName}",
-                    DateOfBirth = pl.DateOfBirth,
-                    Position = pl.Position.ShortName,
-                    Number = pl.Number
-                });
+            var players = _databaseContextReadonly.Set<Player>()
+                                .Include(pl => pl.Position)
+                                .ProjectToType<PlayerDto>()
+                                .ToList()
+                                .Where(pl => pl.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)
+                                        || pl.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase));
 
             return players;
         }
@@ -41,15 +37,10 @@ namespace EPMApi.Controllers
         public PlayerDto Get([FromRoute] int Id)
         {
             var player = _databaseContextReadonly.Set<Player>()
-                .Include(x => x.Position)
-                .Where(pl => pl.Id == Id)
-                .Select(pl => new PlayerDto
-                {
-                    FullName = $"{pl.FirstName} {pl.LastName}",
-                    DateOfBirth = pl.DateOfBirth,
-                    Position = pl.Position.Name,
-                    Number = pl.Number
-                }).FirstOrDefault();
+                                                 .Include(x => x.Position)
+                                                 .Where(pl => pl.Id == Id)
+                                                 .FirstOrDefault()?
+                                                 .Adapt<PlayerDto>();
 
             return player;
         }
@@ -61,17 +52,8 @@ namespace EPMApi.Controllers
                 .Include(x => x.CompetitionSeason)
                     .ThenInclude(x => x.Season)
                 .Where(x => x.PlayerId == PlayerId && x.CompetitionSeason.CompetitionId == CompetitionId)
-                .Select(x => new PlayerStatsDto
-                {
-                    CompetitionId = x.CompetitionSeasonId,
-                    Season = x.CompetitionSeason.Season.Name,
-                    Appearances = x.Appearances,
-                    SubstituteAppearances = x.SubstituteAppearances,
-                    Goals = x.Goals,
-                    Assists = x.Assists,
-                    YellowCards = x.YellowCards,
-                    RedCards = x.RedCards
-                }).ToList();
+                .ProjectToType<PlayerStatsDto>()
+                .ToList();
 
             return playerStats;
         }
@@ -85,6 +67,7 @@ namespace EPMApi.Controllers
                     .Where(p => p.ShortName == playerDto.Position)
                     .Select(p => p.Id).FirstOrDefault();
 
+                //use mapster
                 var newPlayer = new Player
                 {
                     FirstName = playerDto.FirstName,

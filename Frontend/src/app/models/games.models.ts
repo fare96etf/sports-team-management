@@ -1,6 +1,7 @@
 export interface IGame {
     id: number,
     time: Date,
+    dayOfTheMonth: number,
     isCompleted: boolean,
     isHomeGame: boolean,
     team1: string,

@@ -1,6 +1,9 @@
-﻿namespace EPMApi.Dtos
+﻿using EPMApi.Dtos.Base;
+using EPMApi.Models;
+
+namespace EPMApi.Dtos
 {
-    public class GameDto
+    public class GameDto : BaseDto<Game, GameDto>
     {
         public int Id { get; set; }
 
@@ -16,8 +19,18 @@
 
         public DateTime Time { get; set; }
 
+        public int? DayOfTheMonth { get; set; }
+
         public int? Spectators { get; set; }
 
         public bool IsHomeGame { get; set; }
+
+        public override void AddCustomMappings()
+        {
+            SetCustomMappings()
+                .Map(dest => dest.Result, src => src.GetResult())
+                .Map(dest => dest.CompetitionName, src => src.CompetitionSeason.Competition.Name)
+                .Map(dest => dest.DayOfTheMonth, src => src.Time.Day);
+        }
     }
 }

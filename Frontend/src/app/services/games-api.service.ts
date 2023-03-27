@@ -22,6 +22,12 @@ export class GamesApiService extends BaseApiService {
         return this.get<any>(url, params);
     }
 
+    getGamesByMonth() : Observable<any> {
+        const url = `${this.getBaseGamesUrl()}/month`;
+
+        return this.get<any>(url);
+    }
+
     getGame(id: string) : Observable<any> {
         const url = `${this.getBaseGamesUrl()}/${id}`;
         return this.get<any>(url);
