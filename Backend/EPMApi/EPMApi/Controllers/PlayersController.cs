@@ -21,60 +21,74 @@ namespace EPMApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<PlayerDto> Get([FromQuery] string Filter = "")
+        public IActionResult Get([FromQuery] string Filter = "")
         {
             var players = _databaseContextReadonly.Set<Player>()
                                 .Include(pl => pl.Position)
                                 .ProjectToType<PlayerDto>()
-                                .ToList()
+                                .AsEnumerable()
                                 .Where(pl => pl.FirstName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase)
                                         || pl.LastName.Contains(Filter, StringComparison.CurrentCultureIgnoreCase));
 
-            return players;
+            return Ok(players);
         }
 
         [HttpGet("{Id}")]
-        public PlayerDto Get([FromRoute] int Id)
+        public IActionResult Get([FromRoute] int Id)
         {
             var player = _databaseContextReadonly.Set<Player>()
                                                  .Include(x => x.Position)
+                                                 .AsQueryable()
                                                  .Where(pl => pl.Id == Id)
                                                  .FirstOrDefault()?
                                                  .Adapt<PlayerDto>();
 
-            return player;
+            if (player == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(player);
         }
 
         [HttpGet("stats/{PlayerId}/competition/{CompetitionId}")]
-        public IEnumerable<PlayerStatsDto> GetPlayerStats([FromRoute] int PlayerId, [FromRoute] int CompetitionId)
+        public IActionResult GetPlayerStats([FromRoute] int PlayerId, [FromRoute] int CompetitionId)
         {
             var playerStats = _databaseContextReadonly.Set<PlayerStats>()
-                .Include(x => x.CompetitionSeason)
-                    .ThenInclude(x => x.Season)
-                .Where(x => x.PlayerId == PlayerId && x.CompetitionSeason.CompetitionId == CompetitionId)
-                .ProjectToType<PlayerStatsDto>()
-                .ToList();
+                                                      .Include(x => x.CompetitionSeason)
+                                                        .ThenInclude(x => x.Season)
+                                                      .AsQueryable()
+                                                      .Where(x => x.PlayerId == PlayerId && x.CompetitionSeason.CompetitionId == CompetitionId)
+                                                      .ProjectToType<PlayerStatsDto>()
+                                                      .ToList();
 
-            return playerStats;
+            return Ok(playerStats);
         }
 
         [HttpPost]
-        public bool Post([FromBody] PlayerDto playerDto)
+        public IActionResult Post([FromBody] PlayerDto playerDto)
         {
             try
             {
                 var positionId = _databaseContextReadonly.Set<Position>()
-                    .Where(p => p.ShortName == playerDto.Position)
-                    .Select(p => p.Id).FirstOrDefault();
+                                                         .Where(p => p.ShortName == playerDto.Position)
+                                                         .Select(p => p.Id)
+                                                         .FirstOrDefault();
 
-                //use mapster
+                var nationality = _databaseContextReadonly.Set<Country>()
+                                                          .Where(c => c.Id == playerDto.NationalityId)
+                                                          .FirstOrDefault();
+
+                //use mapster SetCustomMappingsInverse
                 var newPlayer = new Player
                 {
                     FirstName = playerDto.FirstName,
                     LastName = playerDto.LastName,
                     DateOfBirth = playerDto.DateOfBirth,
                     PositionId = positionId,
-                    Number = playerDto.Number
+                    Number = playerDto.Number,
+                    Nationality = nationality != null ? nationality.Name : null,
+                    NationalityCode = nationality != null ? nationality.ShortName : null
                 };
 
                 _databaseContext.Add(newPlayer);
@@ -83,10 +97,10 @@ namespace EPMApi.Controllers
             catch (Exception ex) 
             {
                 Console.WriteLine(ex.ToString());
-                return false;
+                return BadRequest();
             }
 
-            return true;
+            return Ok(true);
         }
     }
 }

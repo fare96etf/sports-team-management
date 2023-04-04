@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IPosition } from 'src/app/models/positions.models';
 import { PositionsApiService } from 'src/app/services/positions-api.service';
 import { Subscription } from 'rxjs';
+import { ICountry } from 'src/app/models/countries.models';
+import { CountriesApiService } from 'src/app/services/countries-api.service';
 
 @Component({
   selector: 'players-list-component',
@@ -15,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class PlayersListComponent implements OnDestroy {
   filter: string = '';
   positions$: Observable<IPosition[]>;
+  countries$: Observable<ICountry[]>;
   players$: Observable<IPlayer[]>;
   addPlayerModalTitle: string = "Add new player";
   addPlayerFormGroup: FormGroup = new FormGroup({
@@ -22,16 +25,19 @@ export class PlayersListComponent implements OnDestroy {
     lastName: new FormControl('', [Validators.required]),
     birthDate: new FormControl('', [Validators.required]),
     number: new FormControl('', [Validators.required, Validators.min(0)]),
-    position:  new FormControl('', [Validators.required])
+    position:  new FormControl('', [Validators.required]),
+    nationality:  new FormControl('', [Validators.required])
   });
   subscription: Subscription = new Subscription();
 
   constructor(
     private playersApiService: PlayersApiService, 
-    private positionsApiService: PositionsApiService, 
+    private positionsApiService: PositionsApiService,
+    private countriesApiService: CountriesApiService, 
     private modalService: NgbModal) {
       this.players$ = this.playersApiService.getPlayers('');
       this.positions$ = this.positionsApiService.getPositions();
+      this.countries$ = this.countriesApiService.getCountries();
     }
 
   getPlayers() {
@@ -56,13 +62,12 @@ export class PlayersListComponent implements OnDestroy {
     if (!this.addPlayerFormGroup.valid) return;
 
     let newPlayer: IPlayer = {
-      id: 0,
-      fullName: '',
       firstName: this.addPlayerFormGroup.value.firstName,
       lastName: this.addPlayerFormGroup.value.lastName,
       dateOfBirth: this.addPlayerFormGroup.value.birthDate,
       position: this.addPlayerFormGroup.value.position,
-      number: this.addPlayerFormGroup.value.number
+      number: this.addPlayerFormGroup.value.number,
+      nationalityId: this.addPlayerFormGroup.value.nationality
     };
 
     this.subscription = this.playersApiService.insertPlayer(newPlayer).subscribe(

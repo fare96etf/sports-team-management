@@ -91,6 +91,16 @@
                 This field is required
                 </div>
               </div>
+              <div class="form-group mb-3">
+                <select class="form-select" id="nationality" formControlName="nationality">
+                  <option selected disabled value="">Nationality</option>
+                  <option *ngFor="let country of countries$ | async" [value]="country.id"> {{ country.name }} </option>
+                </select>
+                <div *ngIf="addPlayerFormGroup.get('nationality')?.touched && 
+                              addPlayerFormGroup.get('nationality')?.invalid" class="text-danger">
+                This field is required
+                </div>
+              </div>
               <div class="modal-footer form-group">
                 <button class="btn btn-secondary" type="button" (click)="closeModalAddPlayer()">Close</button>
                 <button class="btn btn-primary" type="submit">Add player</button>

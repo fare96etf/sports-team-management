@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using static EPMApi.Models.Enums.Enums;
 
 namespace EPMApi.Models
 {
@@ -19,6 +19,8 @@ namespace EPMApi.Models
         public string? Team2 { get; set; }
 
         public int? ScoreTeam2 { get; set; }
+
+        public GameOutcome? GameOutcome { get; set; }
 
         public int? Spectators { get; set; }
 

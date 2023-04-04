@@ -1,11 +1,14 @@
 export interface IPlayer {
-    id: number,
-    fullName: string,
-    firstName: string,
-    lastName: string,
-    dateOfBirth: Date,
-    number: number,
-    position: string
+    id?: number,
+    fullName?: string,
+    firstName?: string,
+    lastName?: string,
+    dateOfBirth?: Date,
+    nationalityId?: number,
+    nationality?: string,
+    nationalityCode?: string,
+    number?: number,
+    position?: string
 }
 
 export interface IPlayerStats {

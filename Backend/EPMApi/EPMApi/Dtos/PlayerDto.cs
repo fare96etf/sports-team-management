@@ -15,6 +15,12 @@ namespace EPMApi.Dtos
 
         public DateTime? DateOfBirth { get; set; }
 
+        public int? NationalityId { get; set; }
+
+        public string? Nationality { get; set; }
+
+        public string? NationalityCode { get; set; }
+
         public int Number { get; set; }
 
         public string? Position { get; set; }

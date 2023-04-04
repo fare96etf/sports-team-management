@@ -35,5 +35,7 @@ namespace EPMApi.Persistance
         public DbSet<GamePlayer> GamePlayers { get; set; }
 
         public DbSet<PlayerStats> PlayerStats { get; set; } 
+
+        public DbSet<Country> Countries { get; set; }
     }
 }
