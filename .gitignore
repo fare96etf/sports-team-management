@@ -2,4 +2,5 @@ Backend/EPMApi/.vs
 Backend/EPMApi/EPMApi/bin
 Backend/EPMApi/EPMApi/obj
 Frontend/.angular
+Apis/__pycache__
 .vscode/
