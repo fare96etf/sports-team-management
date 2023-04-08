@@ -87,8 +87,8 @@ namespace EPMApi.Controllers
                     DateOfBirth = playerDto.DateOfBirth,
                     PositionId = positionId,
                     Number = playerDto.Number,
-                    Nationality = nationality != null ? nationality.Name : null,
-                    NationalityCode = nationality != null ? nationality.ShortName : null
+                    Nationality = nationality?.Name,
+                    NationalityCode = nationality?.ShortName
                 };
 
                 _databaseContext.Add(newPlayer);
