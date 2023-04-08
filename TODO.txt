@@ -1,0 +1,16 @@
+1. Tasks
+    -Clean sheets for GK in stats
+    -Improve tooltip in sidebar
+    -When adding player default Bio to his name
+    -Add more details for player height, weight, ...
+    -Make link visible in table for player and game
+    -Picture for player implementation, maybe also fastapi?
+    -Player editing (after users and roles are defined)
+    -Back arrow on pages
+    -Pagination
+    -Create footer
+    -Improve game page FE, formation
+    -Improve calendar FE, add select for months (fix in BE to show selected and not current month)
+    -Move base url from services to shared/constants, and from base api to env.
+    -Add staff list page
+    -Languages (eng, bos, ger)

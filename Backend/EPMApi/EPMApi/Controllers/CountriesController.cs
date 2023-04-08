@@ -1,26 +1,27 @@
 ﻿using EPMApi.Models;
 using EPMApi.Persistance;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPMApi.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class PositionsController : ControllerBase
+    [ApiController]
+    public class CountriesController : ControllerBase
     {
         private readonly DatabaseContext _databaseContextReadonly;
 
-        public PositionsController(DatabaseContext databaseContextReadonly)
+        public CountriesController(DatabaseContext databaseContextReadonly)
         {
             _databaseContextReadonly = databaseContextReadonly;
         }
 
         [HttpGet]
-        public IEnumerable<Position> Get()
+        public IEnumerable<Country> Get()
         {
-            var positions = _databaseContextReadonly.Set<Position>().ToList();
+            var countries = _databaseContextReadonly.Set<Country>().ToList();
 
-            return positions;
+            return countries;
         }
     }
 }

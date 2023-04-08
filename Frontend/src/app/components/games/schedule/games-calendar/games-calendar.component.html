@@ -1,0 +1,29 @@
+<div class="table-responsive calendar">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="7">{{ month }}</th>
+      </tr>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let week of weeks">
+        <ng-container *ngFor="let day of week">
+          <td [class.text-muted]="day.month !== currentMonth">
+            {{ day.day }}
+            <br />
+            <games-calendar-day-component *ngIf="isGameDay(day.day)" [gameDay]="getGameDay(day.day)"></games-calendar-day-component>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</div>

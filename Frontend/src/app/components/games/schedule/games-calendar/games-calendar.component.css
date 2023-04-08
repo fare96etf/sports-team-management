@@ -1,0 +1,19 @@
+.calendar .table {
+  margin-bottom: 0;
+}
+
+.calendar th {
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 0;
+}
+
+.calendar td {
+  text-align: center;
+  font-size: 20px;
+  padding: 10px 0;
+}
+
+.calendar td.text-muted {
+  color: #ccc;
+}

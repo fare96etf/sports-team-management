@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using static EPMApi.Models.Enums.Enums;
 
 namespace EPMApi.Models
 {
@@ -20,6 +20,8 @@ namespace EPMApi.Models
 
         public int? ScoreTeam2 { get; set; }
 
+        public GameOutcome? GameOutcome { get; set; }
+
         public int? Spectators { get; set; }
 
         public int CompetitionSeasonId { get; set; }
@@ -27,6 +29,11 @@ namespace EPMApi.Models
         public virtual CompetitionSeason? CompetitionSeason { get; set; }
 
         public string GetResult() { 
+            if (ScoreTeam1 == null || ScoreTeam2 == null)
+            {
+                return "TBD";
+            }
+
             var result = $"{ScoreTeam1} : {ScoreTeam2}";
                 
             if (!IsHomeGame)

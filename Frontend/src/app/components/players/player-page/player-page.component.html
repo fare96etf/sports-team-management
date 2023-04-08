@@ -13,7 +13,7 @@
           <figure class="figure img-size">
             <img class="figure-img img-fluid rounded-circle" [src]="user.avatar" alt="avatar">
             <figcaption class="figure-caption text-dark text-wrap text-center fs-4 fw-bold">
-              <span class="fi fi-ba"></span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}
+              <span *ngIf="(player$ | async) as player" [ngClass]="getCountryClass(player?.nationalityCode)"></span>{{ (player$ | async)?.fullName }} #{{ (player$ | async)?.number }}
             </figcaption>
           </figure>
         </div>
@@ -56,7 +56,7 @@
                 <span class="input-group-text">Nationality</span>
               </div>
               <div class="col">
-                <input type="email" class="form-control" id="email" [value]="user.email" readonly>
+                <input type="text" class="form-control" id="nationality" [value]="(player$ | async)?.nationality" readonly>
               </div>
             </div>
           </form>
