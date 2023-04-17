@@ -1,9 +1,10 @@
 ﻿using EPMApi.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EPMApi.Persistance
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
