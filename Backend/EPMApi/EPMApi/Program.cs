@@ -11,8 +11,11 @@ var connectionString = builder.Configuration.GetConnectionString("ConnectionStri
 builder.Services.AddDbContext<DatabaseContext>(options => 
     options.UseSqlServer(connectionString).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<DatabaseContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(opt =>
+{
+    opt.Password.RequiredLength = 6;
+    opt.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<DatabaseContext>();
 
 builder.Services.AddMapster();
 builder.Services.AddControllers();
@@ -29,7 +32,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+if (app.Environment.IsProduction())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseCors(x => 
     x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

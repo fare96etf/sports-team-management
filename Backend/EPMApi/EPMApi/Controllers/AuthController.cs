@@ -8,11 +8,11 @@ namespace EPMApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly UserManager<IdentityUser> _userManager;
 
-        public UsersController(UserManager<IdentityUser> userManager)
+        public AuthController(UserManager<IdentityUser> userManager)
         {
             _userManager = userManager;
         }
@@ -29,15 +29,7 @@ namespace EPMApi.Controllers
             if (!result.Succeeded)
             {
                 var errors = result.Errors.Select(e => e.Description);
-
-                //log this differently
-                foreach(var error in errors)
-                {
-                    Console.WriteLine(error);
-                }
-
-
-                return BadRequest();
+                return BadRequest(errors);
             }
 
             return StatusCode(201);

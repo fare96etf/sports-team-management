@@ -18,8 +18,8 @@ const routes: Routes = [
     loadChildren: () => import('./components/games/games.module').then(e => e.GamesModule)
   },
   {
-    path: 'users',
-    loadChildren: () => import('./components/users/users.module').then(e => e.UsersModule)
+    path: 'auth',
+    loadChildren: () => import('./components/auth/auth.module').then(e => e.AuthModule)
   }
   // {
   //   path: '**', redirectTo: 'create-error-page', pathMatch: 'full'

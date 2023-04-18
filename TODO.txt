@@ -1,12 +1,12 @@
 1. Tasks
     -User registration and login with identity server
-        -added migration for default tables from IdentityServer
-        -using default IdentityUser for user (can be extended later)
-        -created API for registration
-        
-        TODO:
-            -create frontend page for registration
-            -create login page and login api
+        -create frontend page for registration (send password do BE and let identity server to hash it, maybe change it later to hash in FE and send hashed value)
+            -improve page style, validations (like for creating new player), create better responses for validation
+            -redirect to login if successfull
+            -
+        -create login page and login api, redirect to dashboard if successfull
+        -login page as default instead of dashboard
+        -prevent showing other pages without login
     -Introduce roles or some other type of authorization (based on that show pages in FE, allow apis in BE)
     -Standardize responses from BE apis
     -Create spinners and popups in FE after reponse from BE 
