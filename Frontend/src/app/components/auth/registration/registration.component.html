@@ -4,13 +4,13 @@
   </div>
   <div class="card-body">
     <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser()">
-        <div class="mb-3 row">
+        <div class="form-group mb-3">
             <label for="userName" class="col-form-label col-sm-2">Username:</label>
             <div class="col-md-5">
                 <input type="text" id="userName" formControlName="userName" class="form-control" />
             </div>
         </div>
-        <div class="mb-3 row">
+        <div class="form-group mb-3">
             <label for="email" class="col-form-label col-sm-2">Email:</label>
             <div class="col-md-5">
                 <input type="email" id="email" formControlName="email" class="form-control" />
@@ -20,7 +20,7 @@
                 <em *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</em>
             </div>
         </div>
-        <div class="mb-3 row">
+        <div class="form-group mb-3">
             <label for="password" class="col-form-label col-sm-2">Password:</label>
             <div class="col-md-5">
                 <input type="password" id="password" formControlName="password" class="form-control" />
@@ -29,14 +29,14 @@
                 <em *ngIf="validateControl('password') && hasError('password', 'required')">Password is required</em>
             </div>
         </div>
-        <div class="mb-3 row">
+        <div class="form-group mb-3">
             <label for="confirm" class="col-form-label col-sm-2">Confirm Password:</label>
             <div class="col-md-5">
                 <input type="password" id="confirm" formControlName="confirm" class="form-control" />
             </div>
         </div>
         <br>
-        <div class="mb-3 row">
+        <div class="form-group">
             <div class="col-md-1">          
                 <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Register</button>
             </div>

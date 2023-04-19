@@ -1,14 +1,15 @@
 1. Tasks
     -User registration and login with identity server
         -create frontend page for registration (send password do BE and let identity server to hash it, maybe change it later to hash in FE and send hashed value)
-            -improve page style, validations (like for creating new player), create better responses for validation
+            -improve page style (no sidebar), validations (like for creating new player), create better responses for validation
             -redirect to login if successfull
-            -
         -create login page and login api, redirect to dashboard if successfull
         -login page as default instead of dashboard
         -prevent showing other pages without login
     -Introduce roles or some other type of authorization (based on that show pages in FE, allow apis in BE)
+    -Create form service to handle touched, error, ...
     -Standardize responses from BE apis
+    -Create interceptors in FE to handle errors from BE, tokens, ...
     -Create spinners and popups in FE after reponse from BE 
     -Clean sheets for GK in stats
     -Improve tooltip in sidebar
